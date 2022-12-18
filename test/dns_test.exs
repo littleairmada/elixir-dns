@@ -16,6 +16,13 @@ defmodule DNSTest do
       assert length(results) > 0
     end
 
+    test "can query custom ipv6 DNS servers" do
+      {:ok, results} = DNS.resolve("www.google.com", :a, nameservers: [{"2001:4860:4860::8844", 53}])
+
+      assert is_list(results)
+      assert length(results) > 0
+    end
+
     test "responds with error if domain not found" do
       assert {:error, _} = DNS.resolve('uifqourefhoqeirhfqeurfhqehfqoerfiuqe.com')
     end
